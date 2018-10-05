@@ -1,3 +1,13 @@
 <!-- views/pages/index.ejs -->
 
 <h1>EatExplorer</h1>
+
+<form action="/find" method="post">
+    <div>
+        <label>Postcode:</label>
+        <input type="text" name="postcode" placeholder="Postcode"/>
+    </div>
+    <div>
+        <input type="submit" value="Find"/>
+    </div>
+</form>
