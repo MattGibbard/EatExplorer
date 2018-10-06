@@ -1,0 +1,67 @@
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+  
+    display: flex;
+    align-items: center;
+  }
+
+.jumbotron{
+    position: relative;
+    height: 100vh;
+    background: linear-gradient(120deg,
+        rgba(100, 100, 100, 0.4), 
+        rgba(150, 150, 105, 0.1)
+      ), url("/img/bg.jpg");
+    background-position: 30% 40%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    margin: 0;
+}
+
+.jumbotron h1{
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
+    font-size:calc(54px + 7vw);
+    
+    text-shadow: 1px 1px 80px #000000;
+}
+
+.jumbotron label{
+    font-family: 'Josefin Sans', sans-serif;
+    text-shadow: 1px 1px 50px #000000;
+    font-size:calc(10px + 0.2vw);
+}
+
+.jumbotron button{
+    font-family: 'Josefin Sans', sans-serif;
+    text-shadow: 1px 1px 50px #000000;
+}
+
+.jumbotron p{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 2vw;
+    font-size:calc(14px + 1.1vw);
+    text-shadow: 1px 1px 50px #000000;
+}
+
+#postcodeInput {
+    font-family: 'Amatic SC', cursive;
+    height: calc(4.875rem + 2px);
+    font-size: 3.25rem;
+    max-width: 200px;
+    margin-bottom: 10px;
+}
+
+#postcodeInput::placeholder {
+    color: #BEBEBE;
+}
+
+#postcodeInput:-ms-input-placeholder {
+    color: #BEBEBE;
+}
+
+#postcodeInput::-ms-input-placeholder {
+    color: #BEBEBE;
+}

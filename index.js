@@ -1,13 +1,15 @@
 //Add requires
 const express = require('express');
 const bodyParser = require('body-parser');
-const request = require('request');
+const request = require('request-promise-native');
 const chalk = require('chalk');
+const yelp = require('yelp-fusion');
 
 const app = express();
 
 //Set global variables
 let port = process.env.PORT || 8080;
+const yelpClient = yelp.client('h04jR83l6ypfTbuAA7IqQmVgMTnhbgMkALkyGapX6W57ez-ODD2okL7PgOqc9Gk30IEDGbkjUSu8X7lRbB6T7MCMZCr_mOwkbl11w2xM8nr6z_QAL-dErj3-KJu4W3Yx');
 
 //Allow app to use Public directory for CSS
 app.use(express.static(__dirname + '/public'));
@@ -34,28 +36,43 @@ app.get('/find/:postcode', function(req, res) {
     var urlParamPostcode = (req.params.postcode);
     console.log(chalk.blue(urlParamPostcode));
 
-    //Need to show onscreen loader at this point
-
-    //Need to add postcode validity checker here.
-    //api.postcodes.io/postcodes/[postcode]/validate
-
     request('https://api.postcodes.io/postcodes/' + urlParamPostcode, function (error, response, body) {
         postcodeAPIResponse = JSON.parse(body);
         //console.log('error:', error);
         //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        console.log('body:', body);
-
+        //console.log('body:', body);
+    
         console.log(postcodeAPIResponse.result.quality);
-        console.log(postcodeAPIResponse.result.longitude);
-        console.log(postcodeAPIResponse.result.latitude);
+        console.log(chalk.yellow('Lat: ' + postcodeAPIResponse.result.latitude));
+        console.log(chalk.yellow('Long: ' + postcodeAPIResponse.result.longitude));
 
+        yelpClient.search({
+            latitude: postcodeAPIResponse.result.latitude,
+            longitude: postcodeAPIResponse.result.longitude,
+            categories: 'restaurants',
+            //locale: 'en_GB',
+            radius: '10000',
+            price: '1, 2, 3, 4',
+            limit: '50', //Limit is severly affected by radius
+            open_now: 'true',
+            sort_by: 'rating'
+        })
+        .then(yelpResponse => {
+            console.log(chalk.bgMagenta(yelpResponse.jsonBody.total + ' businesses found on Yelp in total.'));
+            console.log(chalk.bgMagenta(yelpResponse.jsonBody.businesses.length + ' businesses returned by API. 50 limit.'));
+            console.log(chalk.magenta(yelpResponse.jsonBody.businesses[0].name));
+            console.log(chalk.magenta(yelpResponse.jsonBody.businesses[1].name));
+            console.log(yelpResponse.jsonBody.businesses[0]);
+            //console.log(yelpResponse.jsonBody);
+            res.render('pages/result.ejs', {businessData: yelpResponse.jsonBody, businessCount: yelpResponse.jsonBody.businesses.length});
+        })
+        .catch(error => {
+            console.log('Error: ' + error);
+            res.render('pages/home.ejs');
+        });
+    
+    
     });
-
-    //Need to figure our which local business service to use.
-    // https://developers.zomato.com/api
-    // https://developers.google.com/places/web-service/search#PlaceSearchRequests
-
-    res.render('pages/home.ejs');
 });
 
 

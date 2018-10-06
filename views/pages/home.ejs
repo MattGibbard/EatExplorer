@@ -1,13 +1,21 @@
 <!-- views/pages/index.ejs -->
 
-<h1>EatExplorer</h1>
+<% include ../partials/head.ejs %>
 
-<form action="/find" method="post">
-    <div>
-        <label>Postcode:</label>
-        <input type="text" name="postcode" placeholder="Postcode"/>
+<div class="jumbotron vertical-center">
+    <div class="container jumbobox">
+        <h1 class="display-4">Eat Explorer</h1>
+        <p class="lead">Take the indecision out of finding a restaurant.</p>
+
+        <form action="/find" method="post">
+            <div class="form">
+                <label for="postcodeInput">Enter your postcode to find a random restaurant</label>
+                <input type="text" name="postcode" class="form-control form-control-lg" id="postcodeInput" aria-describedby="postcodeHelp" placeholder="Postcode">
+            </div>
+            <button type="submit" class="btn btn-primary" value="Find">Find a restaurant</button>
+        </form>
     </div>
-    <div>
-        <input type="submit" value="Find"/>
-    </div>
-</form>
+</div>
+
+
+<% include ../partials/foot.ejs %>

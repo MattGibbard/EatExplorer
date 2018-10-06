@@ -1,0 +1,36 @@
+<% include ../partials/head.ejs %>
+
+<h1>EatExplorer</h1>
+
+<form action="/find" method="post">
+    <div>
+        <label>Postcode:</label>
+        <input type="text" name="postcode" placeholder="Postcode"/>
+    </div>
+    <div>
+        <input type="submit" value="Find"/>
+    </div>
+</form>
+
+<% if (businessCount) {
+    let randomBusiness = Math.floor(Math.random() * (businessCount + 1));%>
+    <h2><%= businessData.businesses[randomBusiness].name %></h2>
+    <h3><%= businessData.businesses[randomBusiness].location.address1 %></h3>
+    <h3><%= businessData.businesses[randomBusiness].location.address2 %></h3>
+    <h3><%= businessData.businesses[randomBusiness].location.address3 %></h3>
+    <h3><%= businessData.businesses[randomBusiness].location.city %></h3>
+    <h3><%= businessData.businesses[randomBusiness].location.zip_code %></h3>
+    
+    <h3><%= businessData.businesses[randomBusiness].review_count %> reviews</h3>
+    <h3>Ratingg: <%= businessData.businesses[randomBusiness].rating %>/5</h3>
+    <h3>Price: <%= businessData.businesses[randomBusiness].price %></h3>
+    <h3>Unformatted phone: <%= businessData.businesses[randomBusiness].phone %></h3>
+    <h3>Formatted phone: <%= businessData.businesses[randomBusiness].display_phone %></h3>
+    <h3><%= businessData.businesses[randomBusiness].distance %>m away from you.</h3>
+
+    <img src="<%= businessData.businesses[randomBusiness].image_url %>" style="width:300px;height:300px;">
+  <% } %>
+
+
+
+  <% include ../partials/foot.ejs %>
