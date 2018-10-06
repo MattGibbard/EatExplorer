@@ -1,3 +1,12 @@
+* {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0px;
+    padding: 0px;
+  }
+
 .vertical-center {
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
     min-height: 100vh; /* These two lines are counted as one :-)       */
