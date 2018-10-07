@@ -1,1 +1,1 @@
-# EatExplorer
+# Eat Explorer
