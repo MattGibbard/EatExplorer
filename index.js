@@ -60,7 +60,7 @@ app.get('/find/:postcode', function(req, res) {
                 longitude: postcodeAPIResponse.result.longitude,
                 categories: 'restaurants',
                 //locale: 'en_GB',
-                radius: '5000',
+                radius: '10000',
                 price: '1, 2, 3, 4',
                 limit: '50', //Limit is severly affected by radius
                 open_now: 'true',
@@ -69,11 +69,11 @@ app.get('/find/:postcode', function(req, res) {
             .then(yelpResponse => {
                 console.log(chalk.bgMagenta(yelpResponse.jsonBody.total + ' businesses found on Yelp in total.'));
                 console.log(chalk.bgMagenta(yelpResponse.jsonBody.businesses.length + ' businesses returned by API. 50 limit.'));
-                console.log(chalk.magenta(yelpResponse.jsonBody.businesses[0].name));
-                console.log(yelpResponse.jsonBody.businesses[0]);
+                //console.log(chalk.magenta(yelpResponse.jsonBody.businesses[0].name));
+                //console.log(yelpResponse.jsonBody.businesses[0]);
                 //console.log(yelpResponse.jsonBody);
                 let randomBusinessCalc = Math.floor(Math.random() * (yelpResponse.jsonBody.businesses.length));
-                res.render('pages/result.ejs', {businessData: yelpResponse.jsonBody, randomBusiness: randomBusinessCalc});
+                res.render('pages/result.ejs', {userPostcode: postcodeAPIResponse.result.postcode, businessData: yelpResponse.jsonBody, randomBusiness: randomBusinessCalc, totalBusinesses: yelpResponse.jsonBody.total});
             })
             .catch(error => {
                 console.log('Error: ' + error);

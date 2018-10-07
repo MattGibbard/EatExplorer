@@ -43,7 +43,7 @@
 
 .resulth2{
     font-family: 'Josefin Sans', sans-serif;
-    font-size:calc(10px + 1vw) !important;
+    font-size:calc(12px + 0.7vw) !important;
     display: inline-block;
 }
 
@@ -91,3 +91,20 @@ i {
 #postcodeInput::-ms-input-placeholder {
     color: #BEBEBE;
 }
+
+a {
+    color: #FFFFFF;
+    font-family: 'Josefin Sans', sans-serif;
+    text-shadow: 1px 1px 50px #000000;
+}
+
+a:hover {
+    color: #FFFFFF;
+    text-shadow: 1px 1px 50px #000000;
+}
+
+small {
+    font-family: 'Josefin Sans', sans-serif;
+    text-shadow: 1px 1px 10px #000000;
+}
+

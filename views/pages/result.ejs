@@ -6,98 +6,90 @@
             <div class="row">
                     <% if (businessData.businesses[randomBusiness].image_url !== 'undefined' && businessData.businesses[randomBusiness].image_url !== '') { %>
                     <div class="col-md-2">
-                        <img src="<%= businessData.businesses[randomBusiness].image_url %>" class="rounded-circle" style="width:calc(40px + 7vw);height:calc(40px + 7vw);">
+                        <img src="<%= businessData.businesses[randomBusiness].image_url %>" class="rounded-circle" style="width:calc(50px + 7vw);height:calc(50px + 7vw);">
                     </div>
                     <% } %>
                     <div class="col-md-10">
                         <% if (businessData.businesses[randomBusiness].name !== 'undefined') { %>
                             <h1 class="resulth1"><%= businessData.businesses[randomBusiness].name %></h1>
                         <% } %>
-                        <% if (businessData.businesses[randomBusiness].location.city !== 'undefined') { %>
-                            <h2 class="resulth2"><%= businessData.businesses[randomBusiness].location.city %></h2>
+                        <% if (businessData.businesses[randomBusiness].location.city !== 'undefined' && businessData.businesses[randomBusiness].location.zip_code !== 'undefined') { %>
+                            <h2 class="resulth2"><a href="https://www.google.com/maps/search/?api=1&query=<%= businessData.businesses[randomBusiness].name %> <%= businessData.businesses[randomBusiness].location.city %> <%= businessData.businesses[randomBusiness].location.zip_code %>" target="_blank"><%= businessData.businesses[randomBusiness].location.city %>, <%= businessData.businesses[randomBusiness].location.zip_code %></a></h2>
                         <% } %>
-                        <% if (businessData.businesses[randomBusiness].location.zip_code !== 'undefined') { %>
-                            <h2 class="resulth2">, <%= businessData.businesses[randomBusiness].location.zip_code %></h2>
+                        <small><%= Math.round((businessData.businesses[randomBusiness].distance/1000) * 10) / 10 %>km away</small>
+
+                        <% if (businessData.businesses[randomBusiness].display_phone !== 'undefined' && businessData.businesses[randomBusiness].phone !== 'undefined') { %>
+                            <div class="">
+                                <h2 class="resulth2"><a href="tel:<%= businessData.businesses[randomBusiness].phone %>"><%= businessData.businesses[randomBusiness].display_phone %></a></h2>
+                            </div>
                         <% } %>
+
+                        <div class="rating">
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 0) { %>
+                                    <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 0.5) { %>
+                                    <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 1) { %>
+                                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 1.5) { %>
+                                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 2) { %>
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 2.5) { %>
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 3) { %>
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 3.5) { %>
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 4) { %>
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 4.5) { %>
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                <% } %>
+                                <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 5) { %>
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <% } %>
+                            </div>
+
+                            <div class="Price">
+                                    <% if (businessData.businesses[randomBusiness].price !== 'undefined' && businessData.businesses[randomBusiness].price == '£') { %>
+                                        <i class="fas fa-pound-sign"></i>
+                                    <% } %>
+                                    <% if (businessData.businesses[randomBusiness].price !== 'undefined' && businessData.businesses[randomBusiness].price == '££') { %>
+                                        <i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i>
+                                    <% } %>
+                                    <% if (businessData.businesses[randomBusiness].price !== 'undefined' && businessData.businesses[randomBusiness].price == '£££') { %>
+                                        <i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i>
+                                    <% } %>
+                                    <% if (businessData.businesses[randomBusiness].price !== 'undefined' && businessData.businesses[randomBusiness].price == '££££') { %>
+                                        <i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i>
+                                    <% } %>
+                            </div>
+
+                            <br>
+                            <small><%= totalBusinesses -1 %> other businesses found.</small><br>
+                            <a onClick="window.location.reload()" class="btn btn-primary btn-sm" role="button">Search again?</a>
+                            <a href="/" class="btn btn-default btn-sm" role="button">or start again</a>
+                            
+
+
                     </div>
             </div>
 
-        <br>
-        <div class="row">
-        <p class="lead">Rating</p>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 0) { %>
-            <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 0.5) { %>
-            <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 1) { %>
-            <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 1.5) { %>
-            <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 2) { %>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 2.5) { %>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 3) { %>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 3.5) { %>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 4) { %>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 4.5) { %>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].rating !== 'undefined' && businessData.businesses[randomBusiness].rating == 5) { %>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        <% } %>
-        </div>
 
-        <div class="row">
-        <p class="lead">Price</p>
-        <% if (businessData.businesses[randomBusiness].price !== 'undefined' && businessData.businesses[randomBusiness].price == '£') { %>
-            <i class="fas fa-pound-sign"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].price !== 'undefined' && businessData.businesses[randomBusiness].price == '££') { %>
-            <i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].price !== 'undefined' && businessData.businesses[randomBusiness].price == '£££') { %>
-            <i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i>
-        <% } %>
-        <% if (businessData.businesses[randomBusiness].price !== 'undefined' && businessData.businesses[randomBusiness].price == '££££') { %>
-            <i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i><i class="fas fa-pound-sign"></i>
-        <% } %>
-        </div>
+
 
 
     </div>
 </div>
 
-<% if (businessData.businesses[randomBusiness].name) { %>
-    <h2><%= businessData.businesses[randomBusiness].name %></h2>
-    <h3><%= businessData.businesses[randomBusiness].location.address1 %></h3>
-    <h3><%= businessData.businesses[randomBusiness].location.address2 %></h3>
-    <h3><%= businessData.businesses[randomBusiness].location.address3 %></h3>
-    <h3><%= businessData.businesses[randomBusiness].location.city %></h3>
-    <h3><%= businessData.businesses[randomBusiness].location.zip_code %></h3>
-    
-    <h3><%= businessData.businesses[randomBusiness].review_count %> reviews</h3>
-    <h3>Ratingg: <%= businessData.businesses[randomBusiness].rating %>/5</h3>
-    <h3>Price: <%= businessData.businesses[randomBusiness].price %></h3>
-    <h3>Unformatted phone: <%= businessData.businesses[randomBusiness].phone %></h3>
-    <h3>Formatted phone: <%= businessData.businesses[randomBusiness].display_phone %></h3>
-    <h3><%= Math.round((businessData.businesses[randomBusiness].distance/1000) * 10) / 10 %>km away from you.</h3>
-
-    <img src="<%= businessData.businesses[randomBusiness].image_url %>" style="width:300px;height:300px;">
-  <% } %>
-
-
-
-  <% include ../partials/foot.ejs %>
+<% include ../partials/foot.ejs %>
