@@ -1,7 +1,7 @@
 //Add requires
 const express = require('express');
 const bodyParser = require('body-parser');
-const request = require('request-promise-native');
+const request = require('request');
 const chalk = require('chalk');
 const yelp = require('yelp-fusion');
 
@@ -41,36 +41,45 @@ app.get('/find/:postcode', function(req, res) {
         //console.log('error:', error);
         //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         //console.log('body:', body);
-    
-        console.log(postcodeAPIResponse.result.quality);
-        console.log(chalk.yellow('Lat: ' + postcodeAPIResponse.result.latitude));
-        console.log(chalk.yellow('Long: ' + postcodeAPIResponse.result.longitude));
 
-        yelpClient.search({
-            latitude: postcodeAPIResponse.result.latitude,
-            longitude: postcodeAPIResponse.result.longitude,
-            categories: 'restaurants',
-            //locale: 'en_GB',
-            radius: '10000',
-            price: '1, 2, 3, 4',
-            limit: '50', //Limit is severly affected by radius
-            open_now: 'true',
-            sort_by: 'rating'
-        })
-        .then(yelpResponse => {
-            console.log(chalk.bgMagenta(yelpResponse.jsonBody.total + ' businesses found on Yelp in total.'));
-            console.log(chalk.bgMagenta(yelpResponse.jsonBody.businesses.length + ' businesses returned by API. 50 limit.'));
-            console.log(chalk.magenta(yelpResponse.jsonBody.businesses[0].name));
-            console.log(chalk.magenta(yelpResponse.jsonBody.businesses[1].name));
-            console.log(yelpResponse.jsonBody.businesses[0]);
-            //console.log(yelpResponse.jsonBody);
-            res.render('pages/result.ejs', {businessData: yelpResponse.jsonBody, businessCount: yelpResponse.jsonBody.businesses.length});
-        })
-        .catch(error => {
-            console.log('Error: ' + error);
-            res.render('pages/home.ejs');
-        });
-    
+        console.log(chalk.red('Status code: ' + postcodeAPIResponse.status));
+
+        if (postcodeAPIResponse.status != '200') {
+            res.render('pages/home.ejs', {error: postcodeAPIResponse.status});
+            //Quit rest of process
+            return
+
+        }
+
+            console.log(chalk.yellow('Postcode quality: ' + postcodeAPIResponse.result.quality));
+            console.log(chalk.yellow('Lat: ' + postcodeAPIResponse.result.latitude));
+            console.log(chalk.yellow('Long: ' + postcodeAPIResponse.result.longitude));
+
+            yelpClient.search({
+                latitude: postcodeAPIResponse.result.latitude,
+                longitude: postcodeAPIResponse.result.longitude,
+                categories: 'restaurants',
+                //locale: 'en_GB',
+                radius: '5000',
+                price: '1, 2, 3, 4',
+                limit: '50', //Limit is severly affected by radius
+                open_now: 'true',
+                sort_by: 'rating'
+            })
+            .then(yelpResponse => {
+                console.log(chalk.bgMagenta(yelpResponse.jsonBody.total + ' businesses found on Yelp in total.'));
+                console.log(chalk.bgMagenta(yelpResponse.jsonBody.businesses.length + ' businesses returned by API. 50 limit.'));
+                console.log(chalk.magenta(yelpResponse.jsonBody.businesses[0].name));
+                console.log(yelpResponse.jsonBody.businesses[0]);
+                //console.log(yelpResponse.jsonBody);
+                let randomBusinessCalc = Math.floor(Math.random() * (yelpResponse.jsonBody.businesses.length));
+                res.render('pages/result.ejs', {businessData: yelpResponse.jsonBody, randomBusiness: randomBusinessCalc});
+            })
+            .catch(error => {
+                console.log('Error: ' + error);
+                res.render('pages/home.ejs', {error: error});
+            });
+
     
     });
 });

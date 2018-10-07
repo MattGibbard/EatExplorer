@@ -10,7 +10,7 @@
         <form action="/find" method="post">
             <div class="form">
                 <label for="postcodeInput">Enter your postcode to find a random restaurant</label>
-                <input type="text" name="postcode" class="form-control form-control-lg" id="postcodeInput" aria-describedby="postcodeHelp" placeholder="Postcode">
+                <input type="text" name="postcode" required="required" class="form-control form-control-lg" id="postcodeInput" aria-describedby="postcodeHelp" placeholder="<% if (typeof error == 'undefined') { %>Postcode<% } else { %>Invalid<% } %>">
             </div>
             <button type="submit" class="btn btn-primary" value="Find">Find a restaurant</button>
         </form>
